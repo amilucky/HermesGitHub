@@ -1,0 +1,31 @@
+﻿@model IEnumerable<hermesmvc.Models.FixedTE>
+
+@{
+    ViewBag.Title = "Test2";
+}
+
+<h2>Test2</h2>
+
+
+<table class="table">
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.value)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customer_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.segment_id)
+        </td>
+
+
+    </tr>
+}
+
+</table>

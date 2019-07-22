@@ -1,0 +1,63 @@
+﻿@model IEnumerable<hermesmvc.Models.PromoGroup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dph)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brand.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Segment.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Technology.name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dph)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Brand.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Segment.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Technology.name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

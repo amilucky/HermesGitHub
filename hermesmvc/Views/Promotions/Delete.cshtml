@@ -1,0 +1,152 @@
+﻿@model hermesmvc.Models.Promotion
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Promotion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.shipment_from)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.shipment_from)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.shipment_to)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.shipment_to)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.active_from)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active_from)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.active_to)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active_to)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.promo_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.promo_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.edit_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.edit_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.week1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.week1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.week2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.week2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.week3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.week3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.week4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.week4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.leaflet_fee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.leaflet_fee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.secondaryplacement_fee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.secondaryplacement_fee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PromotionsStatus.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PromotionsStatus.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PromotionsType.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PromotionsType.name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

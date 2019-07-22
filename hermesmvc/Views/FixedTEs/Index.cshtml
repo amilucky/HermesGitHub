@@ -1,0 +1,69 @@
+﻿@model IEnumerable<hermesmvc.ViewModels.FixedTEViewModel>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+
+    @using (Html.BeginForm("Index", "FixedTEs", FormMethod.Post))
+    {
+        @Html.DropDownList("CustomerList", ViewBag.CustomerListName as SelectList)
+
+
+        <input id="Submit1" type="submit" value="search" />
+
+    }
+</p>
+
+
+<table class="table">
+
+    <tr>
+        <th>
+            Year
+        </th>
+        <th>
+            Customer
+        </th>
+        <th>
+            Segment
+        </th>
+        <th>
+            ON invoice
+        </th>
+        <th>
+            OFF invoice
+        </th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.customer_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.segment_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.On_invoice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Off_invoice)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.customer_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.customer_id })
+            </td>
+        </tr>
+    }
+
+</table>

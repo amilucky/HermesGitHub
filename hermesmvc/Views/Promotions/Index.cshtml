@@ -1,0 +1,81 @@
+﻿@model IEnumerable<hermesmvc.Models.Promotion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Shipment from
+        </th>
+        <th>
+            Shipment to
+        </th>
+        <th>
+            Promo name
+        </th>
+        <th>
+            Edit date
+        </th>
+        <th>
+            Note
+        </th>
+        <th>
+            Customer
+        </th>
+        <th>
+            Promo status
+        </th>
+        <th>
+            Promo type
+        </th>
+        <th>
+            # of items
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.shipment_from)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.shipment_to)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.promo_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.edit_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PromotionsStatus.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PromotionsType.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PromotionsDetails.Count)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

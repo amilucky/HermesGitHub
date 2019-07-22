@@ -1,0 +1,66 @@
+﻿@model hermesmvc.Models.PromoGroup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PromoGroup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dph)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dph)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Segment.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Segment.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Technology.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Technology.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

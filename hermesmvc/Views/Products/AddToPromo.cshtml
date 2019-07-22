@@ -1,0 +1,55 @@
+﻿@model IEnumerable<hermesmvc.Models.Product>
+@{
+    ViewBag.Title = "AddToPromo";
+}
+
+<h2>Add Product to Promo</h2>
+
+
+@using (Html.BeginForm())
+{
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("ID")
+        </th>
+        <th>
+            @Html.Label("InternalCode1")
+        </th>
+        <th>
+            @Html.Label("Name")
+        </th>
+        <th>
+            @Html.Label("ProductGroup")
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(model => item.id)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.internal_code_1)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.PromoGroup.name)
+        </td>
+        <td>@Html.ActionLink("AddToPromo2", "AddToPromo2", new { id = item.id })</td>
+        <td><input type="submit" value="Submit" class="btn btn-default" /></td>
+    </tr>
+    }
+
+
+
+</table>
+
+
+}

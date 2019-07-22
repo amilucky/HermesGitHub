@@ -1,0 +1,82 @@
+﻿@model hermesmvc.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.internal_code_1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.internal_code_1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.internal_code_2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.internal_code_2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ean)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ean)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deactive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deactive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.size)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.size)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.casecount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.casecount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PromoGroup.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PromoGroup.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
