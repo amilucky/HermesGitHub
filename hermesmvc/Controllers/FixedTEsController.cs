@@ -17,7 +17,7 @@ namespace hermesmvc.Controllers
 
         public ActionResult Index()
         {
-
+            //test comment
             var getcustomerlist = db.Customers.ToList();
             SelectList list_customer = new SelectList(getcustomerlist, "id", "name");
             ViewBag.CustomerListName = list_customer;
