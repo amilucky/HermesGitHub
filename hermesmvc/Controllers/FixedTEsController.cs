@@ -19,12 +19,14 @@ namespace hermesmvc.Controllers
         {
             //test comment
             var getcustomerlist = db.Customers.ToList();
-            SelectList list_customer = new SelectList(getcustomerlist, "id", "name");
+            getcustomerlist.Insert(0, new Customer { name = "Все", id = 0 });
+            SelectList list_customer = new SelectList(getcustomerlist, "id", "name");              
             ViewBag.CustomerListName = list_customer;
 
-            //var getsegmentlist = db.Segments.ToList();
-            //SelectList list_segment = new SelectList(getsegmentlist, "id", "name");
-            //ViewBag.SegmentListName = list_segment;
+            var getsegmentlist = db.Segments.ToList();
+            getsegmentlist.Insert(0, new Segment { name = "Все", id = 0 });
+            SelectList list_segment = new SelectList(getsegmentlist, "id", "name");
+            ViewBag.SegmentListName = list_segment;
 
             List<FixedTEViewModel> FixedTElist = new List<FixedTEViewModel>();
 
@@ -65,12 +67,14 @@ namespace hermesmvc.Controllers
         public ActionResult Index(FixedTE FTE, FormCollection form)
         {
             var getcustomerlist = db.Customers.ToList();
+            getcustomerlist.Insert(0, new Customer { name = "All", id = 0 });
             SelectList list_customer = new SelectList(getcustomerlist, "id", "name");
             ViewBag.CustomerListName = list_customer;
 
-            //var getsegmentlist = db.Segments.ToList();
-            //SelectList list_segment = new SelectList(getsegmentlist, "id", "name");
-            //ViewBag.SegmentListName = list_segment;
+            var getsegmentlist = db.Segments.ToList();
+            getsegmentlist.Insert(0, new Segment { name = "All", id = 0 });
+            SelectList list_segment = new SelectList(getsegmentlist, "id", "name");
+            ViewBag.SegmentListName = list_segment;
 
 
             //var fixedTEs = db.FixedTEs.Include(f => f.Customer).Include(f => f.Segment).Include(f => f.FixedTE_details);
@@ -80,8 +84,8 @@ namespace hermesmvc.Controllers
             //if (form["CustomerList"] != null)
             //{
             //    int intDDL_Customer = Convert.ToInt32(form["CustomerList"].ToString());
-                //int intDDL_Segment = Convert.ToInt32(form["SegmentList"].ToString());
-                //fixedTEs = db.FixedTEs.Include(f => f.Customer).Include(f => f.Segment).Include(f => f.FixedTE_details).Where(f => f.customer_id == intDDL_Customer).Where(f => f.segment_id == intDDL_Segment);
+            //int intDDL_Segment = Convert.ToInt32(form["SegmentList"].ToString());
+            //fixedTEs = db.FixedTEs.Include(f => f.Customer).Include(f => f.Segment).Include(f => f.FixedTE_details).Where(f => f.customer_id == intDDL_Customer).Where(f => f.segment_id == intDDL_Segment);
             //    fixedTEs = db.FixedTEs.Include(f => f.Customer).Include(f => f.FixedTE_details).Where(f => f.customer_id == intDDL_Customer);
             //}
 
@@ -90,6 +94,7 @@ namespace hermesmvc.Controllers
             List<FixedTEViewModel> FixedTElist = new List<FixedTEViewModel>();
 
             int intDDL_Customer = Convert.ToInt32(form["CustomerList"].ToString());
+            int intDDL_Segment = Convert.ToInt32(form["SegmentList"].ToString());
 
             var fixedTEs = db.FixedTEs
                         .OrderBy(m => m.segment_id)
@@ -105,9 +110,9 @@ namespace hermesmvc.Controllers
                             off_invoice = g.Sum(x => x.FixedTE_details.FixedTE_types.id == 2 ? x.value : 0)
                         });
 
-            foreach (var item in fixedTEs)
+            if (intDDL_Customer == 0 && intDDL_Segment == 0)
             {
-                if (item.customer_id == intDDL_Customer)
+                foreach (var item in fixedTEs)
                 {
                     FixedTEViewModel FixedTEvm = new FixedTEViewModel();
                     FixedTEvm.customer_id = item.customer_id;
@@ -118,8 +123,68 @@ namespace hermesmvc.Controllers
                     FixedTEvm.On_invoice = item.on_invoice;
                     FixedTEvm.Off_invoice = item.off_invoice;
                     FixedTElist.Add(FixedTEvm);
+
+                }
+
+                return View(FixedTElist);
+            }  //If customer and segment was selected "all"
+            else if (intDDL_Customer == 0)
+            {
+                foreach (var item in fixedTEs)
+                {
+                    if (item.segment_id == intDDL_Segment)
+                    {
+                        FixedTEViewModel FixedTEvm = new FixedTEViewModel();
+                        FixedTEvm.customer_id = item.customer_id;
+                        FixedTEvm.customer_name = item.customer_name;
+                        FixedTEvm.segment_id = item.segment_id;
+                        FixedTEvm.segment_name = item.segment_name;
+                        FixedTEvm.year = item.year;
+                        FixedTEvm.On_invoice = item.on_invoice;
+                        FixedTEvm.Off_invoice = item.off_invoice;
+                        FixedTElist.Add(FixedTEvm);
+                    }
                 }
             }
+            else if (intDDL_Segment == 0)
+            {
+                foreach (var item in fixedTEs)
+                {
+                    if (item.customer_id == intDDL_Customer)
+                    {
+                        FixedTEViewModel FixedTEvm = new FixedTEViewModel();
+                        FixedTEvm.customer_id = item.customer_id;
+                        FixedTEvm.customer_name = item.customer_name;
+                        FixedTEvm.segment_id = item.segment_id;
+                        FixedTEvm.segment_name = item.segment_name;
+                        FixedTEvm.year = item.year;
+                        FixedTEvm.On_invoice = item.on_invoice;
+                        FixedTEvm.Off_invoice = item.off_invoice;
+                        FixedTElist.Add(FixedTEvm);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var item in fixedTEs)
+                {
+                    if (item.customer_id == intDDL_Customer && item.segment_id == intDDL_Segment)
+                    {
+                        FixedTEViewModel FixedTEvm = new FixedTEViewModel();
+                        FixedTEvm.customer_id = item.customer_id;
+                        FixedTEvm.customer_name = item.customer_name;
+                        FixedTEvm.segment_id = item.segment_id;
+                        FixedTEvm.segment_name = item.segment_name;
+                        FixedTEvm.year = item.year;
+                        FixedTEvm.On_invoice = item.on_invoice;
+                        FixedTEvm.Off_invoice = item.off_invoice;
+                        FixedTElist.Add(FixedTEvm);
+                    }
+                }
+            }
+
+
+            
 
             return View(FixedTElist);
 

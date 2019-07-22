@@ -12,13 +12,12 @@
     @using (Html.BeginForm("Index", "FixedTEs", FormMethod.Post))
     {
         @Html.DropDownList("CustomerList", ViewBag.CustomerListName as SelectList)
-
+        @Html.DropDownList("SegmentList", ViewBag.SegmentListName as SelectList)
 
         <input id="Submit1" type="submit" value="search" />
 
     }
 </p>
-
 
 <table class="table">
 
