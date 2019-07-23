@@ -19,12 +19,12 @@ namespace hermesmvc.Controllers
         {
             //test comment
             var getcustomerlist = db.Customers.ToList();
-            getcustomerlist.Insert(0, new Customer { name = "Все", id = 0 });
+            getcustomerlist.Insert(0, new Customer { name = "All", id = 0 });
             SelectList list_customer = new SelectList(getcustomerlist, "id", "name");              
             ViewBag.CustomerListName = list_customer;
 
             var getsegmentlist = db.Segments.ToList();
-            getsegmentlist.Insert(0, new Segment { name = "Все", id = 0 });
+            getsegmentlist.Insert(0, new Segment { name = "All", id = 0 });
             SelectList list_segment = new SelectList(getsegmentlist, "id", "name");
             ViewBag.SegmentListName = list_segment;
 
