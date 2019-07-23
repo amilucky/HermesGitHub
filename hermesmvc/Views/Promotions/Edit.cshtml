@@ -5,7 +5,15 @@
 
     ViewBag.Title = "Edit";
 }
+@Styles.Render("~/bundles/jquerycss");
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+$(document).ready(function() {
 
+   $(".datepicker").datepicker();  
+
+});
+</script>
 <h2>Edit</h2>
 
 @using (Html.BeginForm())
@@ -94,25 +102,25 @@
     <div class="row">
         <div class="col-md-2">
             @Html.LabelFor(model => model.shipment_from, "Shipment_from", htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.EditorFor(model => model.shipment_from, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.shipment_from, new { htmlAttributes = new { @class = "form-control datepicker" } })
             @Html.ValidationMessageFor(model => model.shipment_from, "", new { @class = "text-danger" })
         </div>
 
         <div class="col-md-2">
             @Html.LabelFor(model => model.shipment_to, "Shipment_to", htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.EditorFor(model => model.shipment_to, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.shipment_to, new { htmlAttributes = new { @class = "form-control datepicker" } })
             @Html.ValidationMessageFor(model => model.shipment_to, "", new { @class = "text-danger" })
         </div>
 
         <div class="col-md-2">
             @Html.LabelFor(model => model.active_from, "Active_from", htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.EditorFor(model => model.active_from, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.active_from, new { htmlAttributes = new { @class = "form-control datepicker" } })
             @Html.ValidationMessageFor(model => model.active_from, "", new { @class = "text-danger" })
         </div>
 
         <div class="col-md-2">
             @Html.LabelFor(model => model.active_to, "Active_to", htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.EditorFor(model => model.active_to, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.active_to, new { htmlAttributes = new { @class = "form-control datepicker" } })
             @Html.ValidationMessageFor(model => model.active_to, "", new { @class = "text-danger" })
         </div>
 
