@@ -59,6 +59,9 @@ namespace hermesmvc.Controllers
             //{
             //    return HttpNotFound();
             //}
+
+
+
             ViewBag.customer_id = new SelectList(db.Customers, "id", "name", promotion.customer_id);
             ViewBag.promostatus_id = new SelectList(db.PromotionsStatuses, "id", "name", promotion.promostatus_id);
             ViewBag.promotype_id = new SelectList(db.PromotionsTypes, "id", "name", promotion.promotype_id);

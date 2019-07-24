@@ -444,11 +444,11 @@
     <Content Include="Views\PromoGroups\Details.cshtml" />
     <Content Include="Views\PromoGroups\Edit.cshtml" />
     <Content Include="Views\PromoGroups\Index.cshtml" />
-    <Content Include="Views\PromotionsStatuses\Create.cshtml" />
-    <Content Include="Views\PromotionsStatuses\Delete.cshtml" />
-    <Content Include="Views\PromotionsStatuses\Details.cshtml" />
-    <Content Include="Views\PromotionsStatuses\Edit.cshtml" />
-    <Content Include="Views\PromotionsStatuses\Index.cshtml" />
+    <Content Include="Views\PromotionsStatus\Create.cshtml" />
+    <Content Include="Views\PromotionsStatus\Delete.cshtml" />
+    <Content Include="Views\PromotionsStatus\Details.cshtml" />
+    <Content Include="Views\PromotionsStatus\Edit.cshtml" />
+    <Content Include="Views\PromotionsStatus\Index.cshtml" />
     <Content Include="Views\PromotionsTypes\Create.cshtml" />
     <Content Include="Views\PromotionsTypes\Delete.cshtml" />
     <Content Include="Views\PromotionsTypes\Details.cshtml" />

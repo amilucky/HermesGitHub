@@ -36,13 +36,13 @@ namespace hermesmvc.Models
         [System.ComponentModel.DataAnnotations.DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime edit_date { get; set; }
         public string note { get; set; }
-        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}")]
+        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
         public double week1 { get; set; }
-        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}")]
+        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
         public double week2 { get; set; }
-        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}")]
+        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
         public double week3 { get; set; }
-        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}")]
+        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
         public double week4 { get; set; }
         public double leaflet_fee { get; set; }
         public double secondaryplacement_fee { get; set; }
