@@ -12,29 +12,34 @@ namespace hermesmvc.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PromoGroup
+    public partial class Customer1
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PromoGroup()
+        public Customer1()
         {
-            this.BaseSales = new HashSet<BaseSale>();
-            this.Products = new HashSet<Product>();
+            this.CustomerAddresses = new HashSet<CustomerAddress>();
+            this.SalesOrderHeaders = new HashSet<SalesOrderHeader>();
         }
     
-        public int id { get; set; }
-        public string name { get; set; }
-        public int segment_id { get; set; }
-        public int brand_id { get; set; }
-        public int technology_id { get; set; }
-        public double cc { get; set; }
-        public double dph { get; set; }
+        public int CustomerID { get; set; }
+        public bool NameStyle { get; set; }
+        public string Title { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+        public string Suffix { get; set; }
+        public string CompanyName { get; set; }
+        public string SalesPerson { get; set; }
+        public string EmailAddress { get; set; }
+        public string Phone { get; set; }
+        public string PasswordHash { get; set; }
+        public string PasswordSalt { get; set; }
+        public System.Guid rowguid { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BaseSale> BaseSales { get; set; }
-        public virtual Brand Brand { get; set; }
+        public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
-        public virtual Segment Segment { get; set; }
-        public virtual Technology Technology { get; set; }
+        public virtual ICollection<SalesOrderHeader> SalesOrderHeaders { get; set; }
     }
 }

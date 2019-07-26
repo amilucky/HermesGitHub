@@ -12,18 +12,12 @@ namespace hermesmvc.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Brand
+    public partial class vFixedTE
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Brand()
-        {
-            this.PromoGroups = new HashSet<PromoGroup>();
-        }
-    
-        public int id { get; set; }
-        public string name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PromoGroup> PromoGroups { get; set; }
+        public int customer_id { get; set; }
+        public int segment_id { get; set; }
+        public int year { get; set; }
+        public double on_te { get; set; }
+        public double off_te { get; set; }
     }
 }

@@ -217,6 +217,9 @@
     <Compile Include="Models\Actual.cs">
       <DependentUpon>HermesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BaseSale.cs">
       <DependentUpon>HermesModel.tt</DependentUpon>
     </Compile>
@@ -238,7 +241,16 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>HermesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Customer1.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerAddress.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomersDetail.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\database_firewall_rules.cs">
       <DependentUpon>HermesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ErrorLog.cs">
@@ -276,6 +288,21 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>HermesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Product1.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductCategory.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductDescription.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductModel.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductModelProductDescription.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProductsPrice.cs">
       <DependentUpon>HermesModel.tt</DependentUpon>
     </Compile>
@@ -294,7 +321,19 @@
     <Compile Include="Models\PromotionsType.cs">
       <DependentUpon>HermesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SalesOrderDetail.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesOrderHeader.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Segment.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>HermesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
@@ -303,10 +342,49 @@
     <Compile Include="Models\Technology.cs">
       <DependentUpon>HermesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ufnGetAllCategories_Result.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ufnGetCustomerInformation_Result.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>HermesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserGroup.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vFixedTE.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vGetAllCategory.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vProductAndDescription.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vProductModelCatalogDescription.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vPromotionsCalculation.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vPromotionsDetailsCalculation.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vPromotionsMMAC.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vPromotionsNIV.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vPromotionsNSV.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vPromotionsSumGSV.cs">
+      <DependentUpon>HermesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Year.cs">
       <DependentUpon>HermesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

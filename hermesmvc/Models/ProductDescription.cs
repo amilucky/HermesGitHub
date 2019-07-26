@@ -12,18 +12,20 @@ namespace hermesmvc.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Brand
+    public partial class ProductDescription
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Brand()
+        public ProductDescription()
         {
-            this.PromoGroups = new HashSet<PromoGroup>();
+            this.ProductModelProductDescriptions = new HashSet<ProductModelProductDescription>();
         }
     
-        public int id { get; set; }
-        public string name { get; set; }
+        public int ProductDescriptionID { get; set; }
+        public string Description { get; set; }
+        public System.Guid rowguid { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PromoGroup> PromoGroups { get; set; }
+        public virtual ICollection<ProductModelProductDescription> ProductModelProductDescriptions { get; set; }
     }
 }

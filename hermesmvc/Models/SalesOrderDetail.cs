@@ -12,18 +12,19 @@ namespace hermesmvc.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Brand
+    public partial class SalesOrderDetail
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Brand()
-        {
-            this.PromoGroups = new HashSet<PromoGroup>();
-        }
+        public int SalesOrderID { get; set; }
+        public int SalesOrderDetailID { get; set; }
+        public short OrderQty { get; set; }
+        public int ProductID { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal UnitPriceDiscount { get; set; }
+        public decimal LineTotal { get; set; }
+        public System.Guid rowguid { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
     
-        public int id { get; set; }
-        public string name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PromoGroup> PromoGroups { get; set; }
+        public virtual Product1 Product { get; set; }
+        public virtual SalesOrderHeader SalesOrderHeader { get; set; }
     }
 }
