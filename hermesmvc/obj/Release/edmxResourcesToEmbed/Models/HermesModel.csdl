@@ -1,0 +1,1401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HermesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Actual">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="value" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.Actuals_fk0" FromRole="Actuals" ToRole="Customers" />
+    <NavigationProperty Name="Product" Relationship="Self.Actuals_fk1" FromRole="Actuals" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="BaseSale">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="promogroup_id" Type="Int32" Nullable="false" />
+    <Property Name="period_id" Type="Int32" Nullable="false" />
+    <Property Name="value" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.BaseSale_fk0" FromRole="BaseSale" ToRole="Customers" />
+    <NavigationProperty Name="PromoGroup" Relationship="Self.BaseSale_fk1" FromRole="BaseSale" ToRole="PromoGroups" />
+    <NavigationProperty Name="Period" Relationship="Self.BaseSale_fk2" FromRole="BaseSale" ToRole="Period" />
+  </EntityType>
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PromoGroups" Relationship="Self.PromoGroups_fk1" FromRole="Brands" ToRole="PromoGroups" />
+  </EntityType>
+  <EntityType Name="BuildVersion">
+    <Key>
+      <PropertyRef Name="SystemInformationID" />
+    </Key>
+    <Property Name="SystemInformationID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Database_Version" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="VersionDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Channel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Customers" Relationship="Self.Customers_fk1" FromRole="Channels" ToRole="Customers" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Customers" Relationship="Self.Customers_fk0" FromRole="Country" ToRole="Customers" />
+  </EntityType>
+  <EntityType Name="Currency">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ProductsPrices" Relationship="Self.ProductsPrice_fk1" FromRole="Currencies" ToRole="ProductsPrice" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="country_id" Type="Int32" Nullable="false" />
+    <Property Name="channel_id" Type="Int32" Nullable="false" />
+    <Property Name="deactive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Actuals" Relationship="Self.Actuals_fk0" FromRole="Customers" ToRole="Actuals" />
+    <NavigationProperty Name="BaseSales" Relationship="Self.BaseSale_fk0" FromRole="Customers" ToRole="BaseSale" />
+    <NavigationProperty Name="Channel" Relationship="Self.Customers_fk1" FromRole="Customers" ToRole="Channels" />
+    <NavigationProperty Name="Country" Relationship="Self.Customers_fk0" FromRole="Customers" ToRole="Country" />
+    <NavigationProperty Name="CustomersDetails" Relationship="Self.Customers_Details_fk0" FromRole="Customers" ToRole="CustomersDetails" />
+    <NavigationProperty Name="FixedTEs" Relationship="Self.FixedTE_fk0" FromRole="Customers" ToRole="FixedTE" />
+    <NavigationProperty Name="Promotions" Relationship="Self.Promotions_fk1" FromRole="Customers" ToRole="Promotions" />
+  </EntityType>
+  <EntityType Name="CustomersDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="shipto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="soldto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="telephone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.Customers_Details_fk0" FromRole="CustomersDetails" ToRole="Customers" />
+  </EntityType>
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="ErrorLogID" />
+    </Key>
+    <Property Name="ErrorLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ErrorTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ErrorNumber" Type="Int32" Nullable="false" />
+    <Property Name="ErrorSeverity" Type="Int32" />
+    <Property Name="ErrorState" Type="Int32" />
+    <Property Name="ErrorProcedure" Type="String" MaxLength="126" FixedLength="false" Unicode="true" />
+    <Property Name="ErrorLine" Type="Int32" />
+    <Property Name="ErrorMessage" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FixedTE">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="year" Type="Int32" Nullable="false" />
+    <Property Name="segment_id" Type="Int32" Nullable="false" />
+    <Property Name="fixedte_item_id" Type="Int32" Nullable="false" />
+    <Property Name="value" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FixedTE_fk0" FromRole="FixedTE" ToRole="Customers" />
+    <NavigationProperty Name="Segment" Relationship="Self.FixedTE_fk1" FromRole="FixedTE" ToRole="Segments" />
+    <NavigationProperty Name="FixedTE_details" Relationship="Self.FixedTE_fk2" FromRole="FixedTE" ToRole="FixedTE_details" />
+  </EntityType>
+  <EntityType Name="FixedTE_details">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="type_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="FixedTEs" Relationship="Self.FixedTE_fk2" FromRole="FixedTE_details" ToRole="FixedTE" />
+    <NavigationProperty Name="FixedTE_types" Relationship="Self.FixedTE_details_fk0" FromRole="FixedTE_details" ToRole="FixedTE_types" />
+  </EntityType>
+  <EntityType Name="FixedTE_types">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="FixedTE_details" Relationship="Self.FixedTE_details_fk0" FromRole="FixedTE_types" ToRole="FixedTE_details" />
+  </EntityType>
+  <EntityType Name="Period">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="year" Type="Int32" Nullable="false" />
+    <Property Name="month" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BaseSales" Relationship="Self.BaseSale_fk2" FromRole="Period" ToRole="BaseSale" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="internal_code_1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="internal_code_2" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ean" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="deactive" Type="Boolean" Nullable="false" />
+    <Property Name="promogroup_id" Type="Int32" Nullable="false" />
+    <Property Name="size" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="casecount" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Actuals" Relationship="Self.Actuals_fk1" FromRole="Products" ToRole="Actuals" />
+    <NavigationProperty Name="PromoGroup" Relationship="Self.Products_fk0" FromRole="Products" ToRole="PromoGroups" />
+    <NavigationProperty Name="ProductsPrices" Relationship="Self.ProductsPrice_fk0" FromRole="Products" ToRole="ProductsPrice" />
+    <NavigationProperty Name="PromotionsDetails" Relationship="Self.PromotionsDetails_fk0" FromRole="Products" ToRole="PromotionsDetails" />
+    <Property Name="gsv" Type="Double" />
+    <Property Name="pc" Type="Double" />
+    <Property Name="cc" Type="Double" />
+  </EntityType>
+  <EntityType Name="ProductsPrice">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <Property Name="date_from" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="date_to" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="currency_id" Type="Int32" Nullable="false" />
+    <Property Name="gsv" Type="Double" Nullable="false" />
+    <Property Name="pc" Type="Double" Nullable="false" />
+    <Property Name="cc" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Currency" Relationship="Self.ProductsPrice_fk1" FromRole="ProductsPrice" ToRole="Currencies" />
+    <NavigationProperty Name="Product" Relationship="Self.ProductsPrice_fk0" FromRole="ProductsPrice" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="PromoGroup">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="segment_id" Type="Int32" Nullable="false" />
+    <Property Name="brand_id" Type="Int32" Nullable="false" />
+    <Property Name="technology_id" Type="Int32" Nullable="false" />
+    <Property Name="cc" Type="Double" Nullable="false" />
+    <Property Name="dph" Type="Double" Nullable="false" />
+    <NavigationProperty Name="BaseSales" Relationship="Self.BaseSale_fk1" FromRole="PromoGroups" ToRole="BaseSale" />
+    <NavigationProperty Name="Brand" Relationship="Self.PromoGroups_fk1" FromRole="PromoGroups" ToRole="Brands" />
+    <NavigationProperty Name="Products" Relationship="Self.Products_fk0" FromRole="PromoGroups" ToRole="Products" />
+    <NavigationProperty Name="Segment" Relationship="Self.PromoGroups_fk0" FromRole="PromoGroups" ToRole="Segments" />
+    <NavigationProperty Name="Technology" Relationship="Self.PromoGroups_fk2" FromRole="PromoGroups" ToRole="Technologies" />
+  </EntityType>
+  <EntityType Name="Promotion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="promostatus_id" Type="Int32" Nullable="false" />
+    <Property Name="shipment_from" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="shipment_to" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="active_from" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="active_to" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="promo_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="edit_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="week1" Type="Double" Nullable="false" />
+    <Property Name="week2" Type="Double" Nullable="false" />
+    <Property Name="week3" Type="Double" Nullable="false" />
+    <Property Name="week4" Type="Double" Nullable="false" />
+    <Property Name="leaflet_fee" Type="Double" Nullable="false" />
+    <Property Name="secondaryplacement_fee" Type="Double" Nullable="false" />
+    <Property Name="promotype_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.Promotions_fk1" FromRole="Promotions" ToRole="Customers" />
+    <NavigationProperty Name="PromotionsStatus" Relationship="Self.Promotions_fk0" FromRole="Promotions" ToRole="PromotionsStatuses" />
+    <NavigationProperty Name="PromotionsType" Relationship="Self.Promotions_fk2" FromRole="Promotions" ToRole="PromotionsTypes" />
+    <NavigationProperty Name="PromotionsDetails" Relationship="Self.PromotionsDetails_fk1" FromRole="Promotions" ToRole="PromotionsDetails" />
+  </EntityType>
+  <EntityType Name="PromotionsDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <Property Name="promotion_id" Type="Int32" Nullable="false" />
+    <Property Name="volume" Type="Int32" Nullable="false" />
+    <Property Name="discount_on" Type="Double" Nullable="false" />
+    <Property Name="discount_off" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.PromotionsDetails_fk0" FromRole="PromotionsDetails" ToRole="Products" />
+    <NavigationProperty Name="Promotion" Relationship="Self.PromotionsDetails_fk1" FromRole="PromotionsDetails" ToRole="Promotions" />
+    <Property Name="te_on" Type="Decimal" Precision="4" Scale="3" />
+    <Property Name="te_off" Type="Decimal" Precision="4" Scale="3" />
+    <Property Name="edlp" Type="Decimal" Precision="4" Scale="3" />
+  </EntityType>
+  <EntityType Name="PromotionsStatus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Promotions" Relationship="Self.Promotions_fk0" FromRole="PromotionsStatuses" ToRole="Promotions" />
+  </EntityType>
+  <EntityType Name="PromotionsType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Promotions" Relationship="Self.Promotions_fk2" FromRole="PromotionsTypes" ToRole="Promotions" />
+  </EntityType>
+  <EntityType Name="Segment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="FixedTEs" Relationship="Self.FixedTE_fk1" FromRole="Segments" ToRole="FixedTE" />
+    <NavigationProperty Name="PromoGroups" Relationship="Self.PromoGroups_fk0" FromRole="Segments" ToRole="PromoGroups" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Technology">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PromoGroups" Relationship="Self.PromoGroups_fk2" FromRole="Technologies" ToRole="PromoGroups" />
+  </EntityType>
+  <EntityType Name="UserGroup">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.Users_fk0" FromRole="UserGroups" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="usergroup_id" Type="Int32" Nullable="false" />
+    <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="customer_service_notification" Type="Boolean" Nullable="false" />
+    <Property Name="logistic_notification" Type="Boolean" Nullable="false" />
+    <Property Name="management_notification" Type="Boolean" Nullable="false" />
+    <Property Name="admin_notofication" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UserGroup" Relationship="Self.Users_fk0" FromRole="Users" ToRole="UserGroups" />
+  </EntityType>
+  <Association Name="Actuals_fk0">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Actuals" Type="Self.Actual" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Actuals">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Actuals_fk1">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="Actuals" Type="Self.Actual" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Actuals">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BaseSale_fk0">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+    <End Role="BaseSale" Type="Self.BaseSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BaseSale">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BaseSale_fk1">
+    <End Role="PromoGroups" Type="Self.PromoGroup" Multiplicity="1" />
+    <End Role="BaseSale" Type="Self.BaseSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PromoGroups">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BaseSale">
+        <PropertyRef Name="promogroup_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BaseSale_fk2">
+    <End Role="Period" Type="Self.Period" Multiplicity="1" />
+    <End Role="BaseSale" Type="Self.BaseSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Period">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BaseSale">
+        <PropertyRef Name="period_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PromoGroups_fk1">
+    <End Role="Brands" Type="Self.Brand" Multiplicity="1" />
+    <End Role="PromoGroups" Type="Self.PromoGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brands">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PromoGroups">
+        <PropertyRef Name="brand_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Customers_fk1">
+    <End Role="Channels" Type="Self.Channel" Multiplicity="1" />
+    <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Channels">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="channel_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Customers_fk0">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="country_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductsPrice_fk1">
+    <End Role="Currencies" Type="Self.Currency" Multiplicity="1" />
+    <End Role="ProductsPrice" Type="Self.ProductsPrice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Currencies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ProductsPrice">
+        <PropertyRef Name="currency_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Customers_Details_fk0">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+    <End Role="CustomersDetails" Type="Self.CustomersDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CustomersDetails">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FixedTE_fk0">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+    <End Role="FixedTE" Type="Self.FixedTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="FixedTE">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Promotions_fk1">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Promotions" Type="Self.Promotion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Promotions">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FixedTE_fk1">
+    <End Role="Segments" Type="Self.Segment" Multiplicity="1" />
+    <End Role="FixedTE" Type="Self.FixedTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Segments">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="FixedTE">
+        <PropertyRef Name="segment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FixedTE_fk2">
+    <End Role="FixedTE_details" Type="Self.FixedTE_details" Multiplicity="1" />
+    <End Role="FixedTE" Type="Self.FixedTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FixedTE_details">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="FixedTE">
+        <PropertyRef Name="fixedte_item_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FixedTE_details_fk0">
+    <End Role="FixedTE_types" Type="Self.FixedTE_types" Multiplicity="1" />
+    <End Role="FixedTE_details" Type="Self.FixedTE_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FixedTE_types">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="FixedTE_details">
+        <PropertyRef Name="type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Products_fk0">
+    <End Role="PromoGroups" Type="Self.PromoGroup" Multiplicity="1" />
+    <End Role="Products" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PromoGroups">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="promogroup_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductsPrice_fk0">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="ProductsPrice" Type="Self.ProductsPrice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ProductsPrice">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PromotionsDetails_fk0">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="PromotionsDetails" Type="Self.PromotionsDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PromotionsDetails">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PromoGroups_fk0">
+    <End Role="Segments" Type="Self.Segment" Multiplicity="1" />
+    <End Role="PromoGroups" Type="Self.PromoGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Segments">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PromoGroups">
+        <PropertyRef Name="segment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PromoGroups_fk2">
+    <End Role="Technologies" Type="Self.Technology" Multiplicity="1" />
+    <End Role="PromoGroups" Type="Self.PromoGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Technologies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PromoGroups">
+        <PropertyRef Name="technology_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Promotions_fk0">
+    <End Role="PromotionsStatuses" Type="Self.PromotionsStatus" Multiplicity="1" />
+    <End Role="Promotions" Type="Self.Promotion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PromotionsStatuses">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Promotions">
+        <PropertyRef Name="promostatus_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Promotions_fk2">
+    <End Role="PromotionsTypes" Type="Self.PromotionsType" Multiplicity="1" />
+    <End Role="Promotions" Type="Self.Promotion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PromotionsTypes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Promotions">
+        <PropertyRef Name="promotype_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PromotionsDetails_fk1">
+    <End Role="Promotions" Type="Self.Promotion" Multiplicity="1" />
+    <End Role="PromotionsDetails" Type="Self.PromotionsDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Promotions">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PromotionsDetails">
+        <PropertyRef Name="promotion_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Users_fk0">
+    <End Role="UserGroups" Type="Self.UserGroup" Multiplicity="1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserGroups">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="usergroup_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Actuals" EntityType="Self.Actual" />
+    <EntitySet Name="BaseSales" EntityType="Self.BaseSale" />
+    <EntitySet Name="Brands" EntityType="Self.Brand" />
+    <EntitySet Name="BuildVersions" EntityType="Self.BuildVersion" />
+    <EntitySet Name="Channels" EntityType="Self.Channel" />
+    <EntitySet Name="Countries" EntityType="Self.Country" />
+    <EntitySet Name="Currencies" EntityType="Self.Currency" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="CustomersDetails" EntityType="Self.CustomersDetail" />
+    <EntitySet Name="ErrorLogs" EntityType="Self.ErrorLog" />
+    <EntitySet Name="FixedTEs" EntityType="Self.FixedTE" />
+    <EntitySet Name="FixedTE_details" EntityType="Self.FixedTE_details" />
+    <EntitySet Name="FixedTE_types" EntityType="Self.FixedTE_types" />
+    <EntitySet Name="Periods" EntityType="Self.Period" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="ProductsPrices" EntityType="Self.ProductsPrice" />
+    <EntitySet Name="PromoGroups" EntityType="Self.PromoGroup" />
+    <EntitySet Name="Promotions" EntityType="Self.Promotion" />
+    <EntitySet Name="PromotionsDetails" EntityType="Self.PromotionsDetail" />
+    <EntitySet Name="PromotionsStatuses" EntityType="Self.PromotionsStatus" />
+    <EntitySet Name="PromotionsTypes" EntityType="Self.PromotionsType" />
+    <EntitySet Name="Segments" EntityType="Self.Segment" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Technologies" EntityType="Self.Technology" />
+    <EntitySet Name="UserGroups" EntityType="Self.UserGroup" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="Actuals_fk0" Association="Self.Actuals_fk0">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Actuals" EntitySet="Actuals" />
+    </AssociationSet>
+    <AssociationSet Name="Actuals_fk1" Association="Self.Actuals_fk1">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Actuals" EntitySet="Actuals" />
+    </AssociationSet>
+    <AssociationSet Name="BaseSale_fk0" Association="Self.BaseSale_fk0">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="BaseSale" EntitySet="BaseSales" />
+    </AssociationSet>
+    <AssociationSet Name="BaseSale_fk1" Association="Self.BaseSale_fk1">
+      <End Role="PromoGroups" EntitySet="PromoGroups" />
+      <End Role="BaseSale" EntitySet="BaseSales" />
+    </AssociationSet>
+    <AssociationSet Name="BaseSale_fk2" Association="Self.BaseSale_fk2">
+      <End Role="Period" EntitySet="Periods" />
+      <End Role="BaseSale" EntitySet="BaseSales" />
+    </AssociationSet>
+    <AssociationSet Name="PromoGroups_fk1" Association="Self.PromoGroups_fk1">
+      <End Role="Brands" EntitySet="Brands" />
+      <End Role="PromoGroups" EntitySet="PromoGroups" />
+    </AssociationSet>
+    <AssociationSet Name="Customers_fk1" Association="Self.Customers_fk1">
+      <End Role="Channels" EntitySet="Channels" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="Customers_fk0" Association="Self.Customers_fk0">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="Customers" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="ProductsPrice_fk1" Association="Self.ProductsPrice_fk1">
+      <End Role="Currencies" EntitySet="Currencies" />
+      <End Role="ProductsPrice" EntitySet="ProductsPrices" />
+    </AssociationSet>
+    <AssociationSet Name="Customers_Details_fk0" Association="Self.Customers_Details_fk0">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="CustomersDetails" EntitySet="CustomersDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FixedTE_fk0" Association="Self.FixedTE_fk0">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="FixedTE" EntitySet="FixedTEs" />
+    </AssociationSet>
+    <AssociationSet Name="Promotions_fk1" Association="Self.Promotions_fk1">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Promotions" EntitySet="Promotions" />
+    </AssociationSet>
+    <AssociationSet Name="FixedTE_fk1" Association="Self.FixedTE_fk1">
+      <End Role="Segments" EntitySet="Segments" />
+      <End Role="FixedTE" EntitySet="FixedTEs" />
+    </AssociationSet>
+    <AssociationSet Name="FixedTE_fk2" Association="Self.FixedTE_fk2">
+      <End Role="FixedTE_details" EntitySet="FixedTE_details" />
+      <End Role="FixedTE" EntitySet="FixedTEs" />
+    </AssociationSet>
+    <AssociationSet Name="FixedTE_details_fk0" Association="Self.FixedTE_details_fk0">
+      <End Role="FixedTE_types" EntitySet="FixedTE_types" />
+      <End Role="FixedTE_details" EntitySet="FixedTE_details" />
+    </AssociationSet>
+    <AssociationSet Name="Products_fk0" Association="Self.Products_fk0">
+      <End Role="PromoGroups" EntitySet="PromoGroups" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="ProductsPrice_fk0" Association="Self.ProductsPrice_fk0">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductsPrice" EntitySet="ProductsPrices" />
+    </AssociationSet>
+    <AssociationSet Name="PromotionsDetails_fk0" Association="Self.PromotionsDetails_fk0">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="PromotionsDetails" EntitySet="PromotionsDetails" />
+    </AssociationSet>
+    <AssociationSet Name="PromoGroups_fk0" Association="Self.PromoGroups_fk0">
+      <End Role="Segments" EntitySet="Segments" />
+      <End Role="PromoGroups" EntitySet="PromoGroups" />
+    </AssociationSet>
+    <AssociationSet Name="PromoGroups_fk2" Association="Self.PromoGroups_fk2">
+      <End Role="Technologies" EntitySet="Technologies" />
+      <End Role="PromoGroups" EntitySet="PromoGroups" />
+    </AssociationSet>
+    <AssociationSet Name="Promotions_fk0" Association="Self.Promotions_fk0">
+      <End Role="PromotionsStatuses" EntitySet="PromotionsStatuses" />
+      <End Role="Promotions" EntitySet="Promotions" />
+    </AssociationSet>
+    <AssociationSet Name="Promotions_fk2" Association="Self.Promotions_fk2">
+      <End Role="PromotionsTypes" EntitySet="PromotionsTypes" />
+      <End Role="Promotions" EntitySet="Promotions" />
+    </AssociationSet>
+    <AssociationSet Name="PromotionsDetails_fk1" Association="Self.PromotionsDetails_fk1">
+      <End Role="Promotions" EntitySet="Promotions" />
+      <End Role="PromotionsDetails" EntitySet="PromotionsDetails" />
+    </AssociationSet>
+    <AssociationSet Name="Users_fk0" Association="Self.Users_fk0">
+      <End Role="UserGroups" EntitySet="UserGroups" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <EntitySet Name="Years" EntityType="HermesDBModel.Year" />
+    <EntitySet Name="Addresses" EntityType="HermesDBModel.Address" />
+    <EntitySet Name="Customers1" EntityType="HermesDBModel.Customer1" />
+    <EntitySet Name="CustomerAddresses" EntityType="HermesDBModel.CustomerAddress" />
+    <EntitySet Name="Products1" EntityType="HermesDBModel.Product1" />
+    <EntitySet Name="ProductCategories" EntityType="HermesDBModel.ProductCategory" />
+    <EntitySet Name="ProductDescriptions" EntityType="HermesDBModel.ProductDescription" />
+    <EntitySet Name="ProductModels" EntityType="HermesDBModel.ProductModel" />
+    <EntitySet Name="ProductModelProductDescriptions" EntityType="HermesDBModel.ProductModelProductDescription" />
+    <EntitySet Name="SalesOrderDetails" EntityType="HermesDBModel.SalesOrderDetail" />
+    <EntitySet Name="SalesOrderHeaders" EntityType="HermesDBModel.SalesOrderHeader" />
+    <EntitySet Name="vFixedTEs" EntityType="HermesDBModel.vFixedTE" />
+    <EntitySet Name="vPromotionsCalculations" EntityType="HermesDBModel.vPromotionsCalculation" />
+    <EntitySet Name="vPromotionsDetailsCalculations" EntityType="HermesDBModel.vPromotionsDetailsCalculation" />
+    <EntitySet Name="vPromotionsMMACs" EntityType="HermesDBModel.vPromotionsMMAC" />
+    <EntitySet Name="vPromotionsNIVs" EntityType="HermesDBModel.vPromotionsNIV" />
+    <EntitySet Name="vPromotionsNSVs" EntityType="HermesDBModel.vPromotionsNSV" />
+    <EntitySet Name="vPromotionsSumGSVs" EntityType="HermesDBModel.vPromotionsSumGSV" />
+    <EntitySet Name="vGetAllCategories" EntityType="HermesDBModel.vGetAllCategory" />
+    <EntitySet Name="vProductAndDescriptions" EntityType="HermesDBModel.vProductAndDescription" />
+    <EntitySet Name="vProductModelCatalogDescriptions" EntityType="HermesDBModel.vProductModelCatalogDescription" />
+    <EntitySet Name="database_firewall_rules" EntityType="HermesDBModel.database_firewall_rules" />
+    <AssociationSet Name="FK_CustomerAddress_Address_AddressID" Association="HermesDBModel.FK_CustomerAddress_Address_AddressID">
+      <End Role="Address" EntitySet="Addresses" />
+      <End Role="CustomerAddress" EntitySet="CustomerAddresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalesOrderHeader_Address_BillTo_AddressID" Association="HermesDBModel.FK_SalesOrderHeader_Address_BillTo_AddressID">
+      <End Role="Address" EntitySet="Addresses" />
+      <End Role="SalesOrderHeader" EntitySet="SalesOrderHeaders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalesOrderHeader_Address_ShipTo_AddressID" Association="HermesDBModel.FK_SalesOrderHeader_Address_ShipTo_AddressID">
+      <End Role="Address" EntitySet="Addresses" />
+      <End Role="SalesOrderHeader" EntitySet="SalesOrderHeaders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerAddress_Customer_CustomerID" Association="HermesDBModel.FK_CustomerAddress_Customer_CustomerID">
+      <End Role="Customer1" EntitySet="Customers1" />
+      <End Role="CustomerAddress" EntitySet="CustomerAddresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalesOrderHeader_Customer_CustomerID" Association="HermesDBModel.FK_SalesOrderHeader_Customer_CustomerID">
+      <End Role="Customer1" EntitySet="Customers1" />
+      <End Role="SalesOrderHeader" EntitySet="SalesOrderHeaders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_ProductCategory_ProductCategoryID" Association="HermesDBModel.FK_Product_ProductCategory_ProductCategoryID">
+      <End Role="ProductCategory" EntitySet="ProductCategories" />
+      <End Role="Product1" EntitySet="Products1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_ProductModel_ProductModelID" Association="HermesDBModel.FK_Product_ProductModel_ProductModelID">
+      <End Role="ProductModel" EntitySet="ProductModels" />
+      <End Role="Product1" EntitySet="Products1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalesOrderDetail_Product_ProductID" Association="HermesDBModel.FK_SalesOrderDetail_Product_ProductID">
+      <End Role="Product1" EntitySet="Products1" />
+      <End Role="SalesOrderDetail" EntitySet="SalesOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductCategory_ProductCategory_ParentProductCategoryID_ProductCategoryID" Association="HermesDBModel.FK_ProductCategory_ProductCategory_ParentProductCategoryID_ProductCategoryID">
+      <End Role="ProductCategory" EntitySet="ProductCategories" />
+      <End Role="ProductCategory1" EntitySet="ProductCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductModelProductDescription_ProductDescription_ProductDescriptionID" Association="HermesDBModel.FK_ProductModelProductDescription_ProductDescription_ProductDescriptionID">
+      <End Role="ProductDescription" EntitySet="ProductDescriptions" />
+      <End Role="ProductModelProductDescription" EntitySet="ProductModelProductDescriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductModelProductDescription_ProductModel_ProductModelID" Association="HermesDBModel.FK_ProductModelProductDescription_ProductModel_ProductModelID">
+      <End Role="ProductModel" EntitySet="ProductModels" />
+      <End Role="ProductModelProductDescription" EntitySet="ProductModelProductDescriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID" Association="HermesDBModel.FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID">
+      <End Role="SalesOrderHeader" EntitySet="SalesOrderHeaders" />
+      <End Role="SalesOrderDetail" EntitySet="SalesOrderDetails" />
+    </AssociationSet>
+    <FunctionImport Name="prcBrandsInsert">
+      <Parameter Name="name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(HermesDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(HermesDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="ufnGetAllCategories" IsComposable="true" ReturnType="Collection(HermesDBModel.ufnGetAllCategories_Result)" />
+    <FunctionImport Name="ufnGetCustomerInformation" IsComposable="true" ReturnType="Collection(HermesDBModel.ufnGetCustomerInformation_Result)">
+      <Parameter Name="CustomerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspLogError">
+      <Parameter Name="ErrorLogID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspPrintError" />
+  </EntityContainer>
+  <EntityType Name="Year">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="Int16" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="AddressID" />
+    </Key>
+    <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AddressLine1" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="AddressLine2" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="StateProvince" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CountryRegion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PostalCode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CustomerAddresses" Relationship="HermesDBModel.FK_CustomerAddress_Address_AddressID" FromRole="Address" ToRole="CustomerAddress" />
+    <NavigationProperty Name="SalesOrderHeaders" Relationship="HermesDBModel.FK_SalesOrderHeader_Address_BillTo_AddressID" FromRole="Address" ToRole="SalesOrderHeader" />
+    <NavigationProperty Name="SalesOrderHeaders1" Relationship="HermesDBModel.FK_SalesOrderHeader_Address_ShipTo_AddressID" FromRole="Address" ToRole="SalesOrderHeader" />
+  </EntityType>
+  <EntityType Name="Customer1">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameStyle" Type="Boolean" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Suffix" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="SalesPerson" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CustomerAddresses" Relationship="HermesDBModel.FK_CustomerAddress_Customer_CustomerID" FromRole="Customer1" ToRole="CustomerAddress" />
+    <NavigationProperty Name="SalesOrderHeaders" Relationship="HermesDBModel.FK_SalesOrderHeader_Customer_CustomerID" FromRole="Customer1" ToRole="SalesOrderHeader" />
+  </EntityType>
+  <EntityType Name="CustomerAddress">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+      <PropertyRef Name="AddressID" />
+    </Key>
+    <Property Name="CustomerID" Type="Int32" Nullable="false" />
+    <Property Name="AddressID" Type="Int32" Nullable="false" />
+    <Property Name="AddressType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Address" Relationship="HermesDBModel.FK_CustomerAddress_Address_AddressID" FromRole="CustomerAddress" ToRole="Address" />
+    <NavigationProperty Name="Customer" Relationship="HermesDBModel.FK_CustomerAddress_Customer_CustomerID" FromRole="CustomerAddress" ToRole="Customer1" />
+  </EntityType>
+  <EntityType Name="Product1">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductNumber" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="Color" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="StandardCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="ListPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Size" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="Weight" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="ProductCategoryID" Type="Int32" />
+    <Property Name="ProductModelID" Type="Int32" />
+    <Property Name="SellStartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="SellEndDate" Type="DateTime" Precision="3" />
+    <Property Name="DiscontinuedDate" Type="DateTime" Precision="3" />
+    <Property Name="ThumbNailPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="ThumbnailPhotoFileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="ProductCategory" Relationship="HermesDBModel.FK_Product_ProductCategory_ProductCategoryID" FromRole="Product1" ToRole="ProductCategory" />
+    <NavigationProperty Name="ProductModel" Relationship="HermesDBModel.FK_Product_ProductModel_ProductModelID" FromRole="Product1" ToRole="ProductModel" />
+    <NavigationProperty Name="SalesOrderDetails" Relationship="HermesDBModel.FK_SalesOrderDetail_Product_ProductID" FromRole="Product1" ToRole="SalesOrderDetail" />
+  </EntityType>
+  <EntityType Name="ProductCategory">
+    <Key>
+      <PropertyRef Name="ProductCategoryID" />
+    </Key>
+    <Property Name="ProductCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentProductCategoryID" Type="Int32" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="HermesDBModel.FK_Product_ProductCategory_ProductCategoryID" FromRole="ProductCategory" ToRole="Product1" />
+    <NavigationProperty Name="ProductCategory1" Relationship="HermesDBModel.FK_ProductCategory_ProductCategory_ParentProductCategoryID_ProductCategoryID" FromRole="ProductCategory" ToRole="ProductCategory1" />
+    <NavigationProperty Name="ProductCategory2" Relationship="HermesDBModel.FK_ProductCategory_ProductCategory_ParentProductCategoryID_ProductCategoryID" FromRole="ProductCategory1" ToRole="ProductCategory" />
+  </EntityType>
+  <EntityType Name="ProductDescription">
+    <Key>
+      <PropertyRef Name="ProductDescriptionID" />
+    </Key>
+    <Property Name="ProductDescriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="ProductModelProductDescriptions" Relationship="HermesDBModel.FK_ProductModelProductDescription_ProductDescription_ProductDescriptionID" FromRole="ProductDescription" ToRole="ProductModelProductDescription" />
+  </EntityType>
+  <EntityType Name="ProductModel">
+    <Key>
+      <PropertyRef Name="ProductModelID" />
+    </Key>
+    <Property Name="ProductModelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CatalogDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="HermesDBModel.FK_Product_ProductModel_ProductModelID" FromRole="ProductModel" ToRole="Product1" />
+    <NavigationProperty Name="ProductModelProductDescriptions" Relationship="HermesDBModel.FK_ProductModelProductDescription_ProductModel_ProductModelID" FromRole="ProductModel" ToRole="ProductModelProductDescription" />
+  </EntityType>
+  <EntityType Name="ProductModelProductDescription">
+    <Key>
+      <PropertyRef Name="ProductModelID" />
+      <PropertyRef Name="ProductDescriptionID" />
+      <PropertyRef Name="Culture" />
+    </Key>
+    <Property Name="ProductModelID" Type="Int32" Nullable="false" />
+    <Property Name="ProductDescriptionID" Type="Int32" Nullable="false" />
+    <Property Name="Culture" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="ProductDescription" Relationship="HermesDBModel.FK_ProductModelProductDescription_ProductDescription_ProductDescriptionID" FromRole="ProductModelProductDescription" ToRole="ProductDescription" />
+    <NavigationProperty Name="ProductModel" Relationship="HermesDBModel.FK_ProductModelProductDescription_ProductModel_ProductModelID" FromRole="ProductModelProductDescription" ToRole="ProductModel" />
+  </EntityType>
+  <EntityType Name="SalesOrderDetail">
+    <Key>
+      <PropertyRef Name="SalesOrderID" />
+      <PropertyRef Name="SalesOrderDetailID" />
+    </Key>
+    <Property Name="SalesOrderID" Type="Int32" Nullable="false" />
+    <Property Name="SalesOrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderQty" Type="Int16" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="UnitPriceDiscount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="LineTotal" Type="Decimal" Nullable="false" Precision="38" Scale="6" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Product" Relationship="HermesDBModel.FK_SalesOrderDetail_Product_ProductID" FromRole="SalesOrderDetail" ToRole="Product1" />
+    <NavigationProperty Name="SalesOrderHeader" Relationship="HermesDBModel.FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID" FromRole="SalesOrderDetail" ToRole="SalesOrderHeader" />
+  </EntityType>
+  <EntityType Name="SalesOrderHeader">
+    <Key>
+      <PropertyRef Name="SalesOrderID" />
+    </Key>
+    <Property Name="SalesOrderID" Type="Int32" Nullable="false" />
+    <Property Name="RevisionNumber" Type="Byte" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ShipDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="OnlineOrderFlag" Type="Boolean" Nullable="false" />
+    <Property Name="SalesOrderNumber" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="PurchaseOrderNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="AccountNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerID" Type="Int32" Nullable="false" />
+    <Property Name="ShipToAddressID" Type="Int32" />
+    <Property Name="BillToAddressID" Type="Int32" />
+    <Property Name="ShipMethod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreditCardApprovalCode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="TaxAmt" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Freight" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="TotalDue" Type="Decimal" Nullable="false" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Address" Relationship="HermesDBModel.FK_SalesOrderHeader_Address_BillTo_AddressID" FromRole="SalesOrderHeader" ToRole="Address" />
+    <NavigationProperty Name="Address1" Relationship="HermesDBModel.FK_SalesOrderHeader_Address_ShipTo_AddressID" FromRole="SalesOrderHeader" ToRole="Address" />
+    <NavigationProperty Name="Customer" Relationship="HermesDBModel.FK_SalesOrderHeader_Customer_CustomerID" FromRole="SalesOrderHeader" ToRole="Customer1" />
+    <NavigationProperty Name="SalesOrderDetails" Relationship="HermesDBModel.FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID" FromRole="SalesOrderHeader" ToRole="SalesOrderDetail" />
+  </EntityType>
+  <EntityType Name="vFixedTE">
+    <Key>
+      <PropertyRef Name="customer_id" />
+      <PropertyRef Name="segment_id" />
+      <PropertyRef Name="year" />
+      <PropertyRef Name="on_te" />
+      <PropertyRef Name="off_te" />
+    </Key>
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="segment_id" Type="Int32" Nullable="false" />
+    <Property Name="year" Type="Int32" Nullable="false" />
+    <Property Name="on_te" Type="Double" Nullable="false" />
+    <Property Name="off_te" Type="Double" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vPromotionsCalculation">
+    <Key>
+      <PropertyRef Name="customer_id" />
+    </Key>
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="volume" Type="Int32" />
+    <Property Name="gsv" Type="Double" />
+    <Property Name="niv" Type="Double" />
+    <Property Name="nsv" Type="Double" />
+    <Property Name="te" Type="Double" />
+    <Property Name="te_perc" Type="Double" />
+    <Property Name="mmac" Type="Double" />
+    <Property Name="mmac_perc" Type="Double" />
+  </EntityType>
+  <EntityType Name="vPromotionsDetailsCalculation">
+    <Key>
+      <PropertyRef Name="customer_id" />
+      <PropertyRef Name="product_id" />
+      <PropertyRef Name="volume" />
+    </Key>
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <Property Name="volume" Type="Int32" Nullable="false" />
+    <Property Name="gsv" Type="Double" />
+    <Property Name="niv" Type="Double" />
+    <Property Name="nsv" Type="Double" />
+    <Property Name="te" Type="Double" />
+    <Property Name="te_perc" Type="Double" />
+    <Property Name="mmac" Type="Double" />
+    <Property Name="mmac_perc" Type="Double" />
+  </EntityType>
+  <EntityType Name="vPromotionsMMAC">
+    <Key>
+      <PropertyRef Name="customer_id" />
+      <PropertyRef Name="product_id" />
+      <PropertyRef Name="volume" />
+      <PropertyRef Name="gsv_item" />
+      <PropertyRef Name="discount_on" />
+      <PropertyRef Name="on_te" />
+      <PropertyRef Name="niv_item" />
+      <PropertyRef Name="discount_off" />
+      <PropertyRef Name="off_te" />
+      <PropertyRef Name="pc" />
+      <PropertyRef Name="cc" />
+      <PropertyRef Name="casecount" />
+    </Key>
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <Property Name="volume" Type="Int32" Nullable="false" />
+    <Property Name="gsv_item" Type="Double" Nullable="false" />
+    <Property Name="discount_on" Type="Double" Nullable="false" />
+    <Property Name="on_te" Type="Double" Nullable="false" />
+    <Property Name="niv_item" Type="Double" Nullable="false" />
+    <Property Name="leaflet_fee_item" Type="Double" />
+    <Property Name="secondaryplacement_fee_item" Type="Double" />
+    <Property Name="discount_off" Type="Double" Nullable="false" />
+    <Property Name="off_te" Type="Double" Nullable="false" />
+    <Property Name="pc" Type="Double" Nullable="false" />
+    <Property Name="cc" Type="Double" Nullable="false" />
+    <Property Name="casecount" Type="Int32" Nullable="false" />
+    <Property Name="nsv_item" Type="Double" />
+    <Property Name="mmac_item" Type="Double" />
+  </EntityType>
+  <EntityType Name="vPromotionsNIV">
+    <Key>
+      <PropertyRef Name="customer_id" />
+      <PropertyRef Name="product_id" />
+      <PropertyRef Name="volume" />
+      <PropertyRef Name="gsv_item" />
+      <PropertyRef Name="discount_on" />
+      <PropertyRef Name="on_te" />
+      <PropertyRef Name="niv_item" />
+      <PropertyRef Name="discount_off" />
+      <PropertyRef Name="off_te" />
+      <PropertyRef Name="pc" />
+      <PropertyRef Name="cc" />
+      <PropertyRef Name="casecount" />
+    </Key>
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <Property Name="volume" Type="Int32" Nullable="false" />
+    <Property Name="gsv_item" Type="Double" Nullable="false" />
+    <Property Name="discount_on" Type="Double" Nullable="false" />
+    <Property Name="on_te" Type="Double" Nullable="false" />
+    <Property Name="niv_item" Type="Double" Nullable="false" />
+    <Property Name="leaflet_fee_item" Type="Double" />
+    <Property Name="secondaryplacement_fee_item" Type="Double" />
+    <Property Name="discount_off" Type="Double" Nullable="false" />
+    <Property Name="off_te" Type="Double" Nullable="false" />
+    <Property Name="pc" Type="Double" Nullable="false" />
+    <Property Name="cc" Type="Double" Nullable="false" />
+    <Property Name="casecount" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vPromotionsNSV">
+    <Key>
+      <PropertyRef Name="customer_id" />
+      <PropertyRef Name="product_id" />
+      <PropertyRef Name="volume" />
+      <PropertyRef Name="gsv_item" />
+      <PropertyRef Name="discount_on" />
+      <PropertyRef Name="on_te" />
+      <PropertyRef Name="niv_item" />
+      <PropertyRef Name="discount_off" />
+      <PropertyRef Name="off_te" />
+      <PropertyRef Name="pc" />
+      <PropertyRef Name="cc" />
+      <PropertyRef Name="casecount" />
+    </Key>
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <Property Name="volume" Type="Int32" Nullable="false" />
+    <Property Name="gsv_item" Type="Double" Nullable="false" />
+    <Property Name="discount_on" Type="Double" Nullable="false" />
+    <Property Name="on_te" Type="Double" Nullable="false" />
+    <Property Name="niv_item" Type="Double" Nullable="false" />
+    <Property Name="leaflet_fee_item" Type="Double" />
+    <Property Name="secondaryplacement_fee_item" Type="Double" />
+    <Property Name="discount_off" Type="Double" Nullable="false" />
+    <Property Name="off_te" Type="Double" Nullable="false" />
+    <Property Name="pc" Type="Double" Nullable="false" />
+    <Property Name="cc" Type="Double" Nullable="false" />
+    <Property Name="casecount" Type="Int32" Nullable="false" />
+    <Property Name="nsv_item" Type="Double" />
+  </EntityType>
+  <EntityType Name="vPromotionsSumGSV">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="gsv_item_sum" Type="Double" />
+  </EntityType>
+  <EntityType Name="vGetAllCategory">
+    <Key>
+      <PropertyRef Name="ParentProductCategoryName" />
+    </Key>
+    <Property Name="ParentProductCategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCategoryID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vProductAndDescription">
+    <Key>
+      <PropertyRef Name="ProductID" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="ProductModel" />
+      <PropertyRef Name="Culture" />
+      <PropertyRef Name="Description" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductModel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Culture" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vProductModelCatalogDescription">
+    <Key>
+      <PropertyRef Name="ProductModelID" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="rowguid" />
+      <PropertyRef Name="ModifiedDate" />
+    </Key>
+    <Property Name="ProductModelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Manufacturer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Copyright" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="ProductURL" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="WarrantyPeriod" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="WarrantyDescription" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="NoOfYears" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="MaintenanceDescription" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Wheel" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Saddle" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Pedal" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="BikeFrame" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Crankset" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PictureAngle" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PictureSize" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ProductPhotoID" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Material" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Color" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ProductLine" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Style" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="RiderExperience" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+    <Property Name="rowguid" Type="Guid" Nullable="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="FK_CustomerAddress_Address_AddressID">
+    <End Type="HermesDBModel.Address" Role="Address" Multiplicity="1" />
+    <End Type="HermesDBModel.CustomerAddress" Role="CustomerAddress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="AddressID" />
+      </Principal>
+      <Dependent Role="CustomerAddress">
+        <PropertyRef Name="AddressID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalesOrderHeader_Address_BillTo_AddressID">
+    <End Type="HermesDBModel.Address" Role="Address" Multiplicity="0..1" />
+    <End Type="HermesDBModel.SalesOrderHeader" Role="SalesOrderHeader" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="AddressID" />
+      </Principal>
+      <Dependent Role="SalesOrderHeader">
+        <PropertyRef Name="BillToAddressID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalesOrderHeader_Address_ShipTo_AddressID">
+    <End Type="HermesDBModel.Address" Role="Address" Multiplicity="0..1" />
+    <End Type="HermesDBModel.SalesOrderHeader" Role="SalesOrderHeader" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="AddressID" />
+      </Principal>
+      <Dependent Role="SalesOrderHeader">
+        <PropertyRef Name="ShipToAddressID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerAddress_Customer_CustomerID">
+    <End Type="HermesDBModel.Customer1" Role="Customer1" Multiplicity="1" />
+    <End Type="HermesDBModel.CustomerAddress" Role="CustomerAddress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer1">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="CustomerAddress">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalesOrderHeader_Customer_CustomerID">
+    <End Type="HermesDBModel.Customer1" Role="Customer1" Multiplicity="1" />
+    <End Type="HermesDBModel.SalesOrderHeader" Role="SalesOrderHeader" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer1">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="SalesOrderHeader">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_ProductCategory_ProductCategoryID">
+    <End Type="HermesDBModel.ProductCategory" Role="ProductCategory" Multiplicity="0..1" />
+    <End Type="HermesDBModel.Product1" Role="Product1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductCategory">
+        <PropertyRef Name="ProductCategoryID" />
+      </Principal>
+      <Dependent Role="Product1">
+        <PropertyRef Name="ProductCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_ProductModel_ProductModelID">
+    <End Type="HermesDBModel.ProductModel" Role="ProductModel" Multiplicity="0..1" />
+    <End Type="HermesDBModel.Product1" Role="Product1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductModel">
+        <PropertyRef Name="ProductModelID" />
+      </Principal>
+      <Dependent Role="Product1">
+        <PropertyRef Name="ProductModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalesOrderDetail_Product_ProductID">
+    <End Type="HermesDBModel.Product1" Role="Product1" Multiplicity="1" />
+    <End Type="HermesDBModel.SalesOrderDetail" Role="SalesOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product1">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="SalesOrderDetail">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductCategory_ProductCategory_ParentProductCategoryID_ProductCategoryID">
+    <End Type="HermesDBModel.ProductCategory" Role="ProductCategory" Multiplicity="0..1" />
+    <End Type="HermesDBModel.ProductCategory" Role="ProductCategory1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductCategory">
+        <PropertyRef Name="ProductCategoryID" />
+      </Principal>
+      <Dependent Role="ProductCategory1">
+        <PropertyRef Name="ParentProductCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductModelProductDescription_ProductDescription_ProductDescriptionID">
+    <End Type="HermesDBModel.ProductDescription" Role="ProductDescription" Multiplicity="1" />
+    <End Type="HermesDBModel.ProductModelProductDescription" Role="ProductModelProductDescription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductDescription">
+        <PropertyRef Name="ProductDescriptionID" />
+      </Principal>
+      <Dependent Role="ProductModelProductDescription">
+        <PropertyRef Name="ProductDescriptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductModelProductDescription_ProductModel_ProductModelID">
+    <End Type="HermesDBModel.ProductModel" Role="ProductModel" Multiplicity="1" />
+    <End Type="HermesDBModel.ProductModelProductDescription" Role="ProductModelProductDescription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductModel">
+        <PropertyRef Name="ProductModelID" />
+      </Principal>
+      <Dependent Role="ProductModelProductDescription">
+        <PropertyRef Name="ProductModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID">
+    <End Type="HermesDBModel.SalesOrderHeader" Role="SalesOrderHeader" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="HermesDBModel.SalesOrderDetail" Role="SalesOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SalesOrderHeader">
+        <PropertyRef Name="SalesOrderID" />
+      </Principal>
+      <Dependent Role="SalesOrderDetail">
+        <PropertyRef Name="SalesOrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="ufnGetAllCategories_Result">
+    <Property Type="String" Name="ParentProductCategoryName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ProductCategoryName" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ProductCategoryID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="ufnGetCustomerInformation_Result">
+    <Property Type="Int32" Name="CustomerID" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+</Schema>
