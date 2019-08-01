@@ -18,6 +18,7 @@
 <script type="text/javascript">
     //script for auto calculate gsv/niv/nsv/mmac values
     $(document).ready(function () {
+        calculateKpi();
         $('.products-table > tbody > tr > td > input').on('change', function (e) {
             var input = e.currentTarget;
             //var id = $(input).attr('name');
@@ -25,8 +26,8 @@
             var tr = $(input).parent().parent();
 
             var gsv = tr.children('input:nth-child(1)').val();
-            var te_on = tr.children('input:nth-child(2)').val();
-            var te_off = tr.children('input:nth-child(3)').val();
+            var te_on = tr.children('input:nth-child(2)').val().replace(',', '.');
+            var te_off = tr.children('input:nth-child(3)').val().replace(',', '.');
             var cc = tr.children('input:nth-child(4)').val();
             var pc = tr.children('input:nth-child(5)').val();
             //console.log(te_on, te_off, cc, pc);
@@ -37,10 +38,10 @@
             var discount_on = $(tr).find('.discount_on').val().replace('%', '').replace(',', '.') / 100;
             var discount_off = $(tr).find('.discount_off').val().replace('%', '').replace(',', '.') / 100;
 
-            gsv = gsv * volume;
-            var niv = gsv * (1 - discount_on) * (1 - te_on);
-            var nsv = niv * (1 - discount_off) * (1 - te_off);
-            var mmac = nsv - pc - cc;
+            gsv = (gsv * volume).toFixed();
+            var niv = (gsv * (1 - discount_on) * (1 - te_on)).toFixed();
+            var nsv = (niv * (1 - discount_off) * (1 - te_off)).toFixed();
+            var mmac = (nsv - pc - cc).toFixed();
 
             var gsvDt = tr.children('.gsv');
             var nivDt = tr.children('.niv');
@@ -54,6 +55,8 @@
 
             //console.log(volume, discount_on, discount_off, gsv);
             //console.log(gsv, niv, nsv, mmac);
+
+            calculateKpi();
         });
     });
 
@@ -72,6 +75,36 @@
 
         return false;
     };
+</script>
+
+<script>
+    
+    function calculateKpi() {
+        var result = 0;
+        $(".products-table > tbody").find('.gsv').each(function () {
+            var value = parseFloat($(this).text().replace(' ', ''));
+            result += value;
+        });
+        $(".products-table > tbody").find('.gsvsum').text(result);
+
+        $(".products-table > tbody").find('.niv').each(function () {
+            var value = parseFloat($(this).text().replace(' ', ''));
+            result += value;
+        });
+        $(".products-table > tbody").find('.nivsum').text(result);
+
+        $(".products-table > tbody").find('.nsv').each(function () {
+            var value = parseFloat($(this).text().replace(' ', ''));
+            result += value;
+        });
+        $(".products-table > tbody").find('.nsvsum').text(result);
+
+        $(".products-table > tbody").find('.mmac').each(function () {
+            var value = parseFloat($(this).text().replace(' ', ''));
+            result += value;
+        });
+        $(".products-table > tbody").find('.mmacsum').text(result);
+    }
 </script>
 
 <h2>Edit</h2>
@@ -278,27 +311,27 @@
                     <td width="10%">
                         @Html.DisplayFor(model => model.PromotionsDetails[i].Product.casecount, new { htmlAttributes = new { @class = "form-control" } })
                     </td>
-                    <td width="8%" class="gsv">
+                    <td width="8%" class="gsv" align="left">
 
                         @{
                             var gsv = Model.PromotionsDetails[i].volume * Model.PromotionsDetails[i].Product.gsv;
                             @Html.DisplayFor(model => gsv, new { htmlAttributes = new { @class = "form-control" } })
                         }
                     </td>
-                    <td width="8%" class="niv">
+                    <td width="8%" class="niv" align="left">
                         @{
                             var niv = gsv * (1 - Model.PromotionsDetails[i].discount_on) * (1 - Convert.ToDouble(Model.PromotionsDetails[i].te_on));
                             //niv = @Math.Round(Convert.ToDouble(niv));
                             @Html.DisplayFor(model => niv, new { htmlAttributes = new { @class = "form-control" } })
                         }
                     </td>
-                    <td width="8%" class="nsv">
+                    <td width="8%" class="nsv" align="left">
                         @{
                             var nsv = Convert.ToDouble(niv) * (1 - Model.PromotionsDetails[i].discount_off) * (1 - Convert.ToDouble(Model.PromotionsDetails[i].te_off));
                             @Html.DisplayFor(model => nsv, new { htmlAttributes = new { @class = "form-control" } })
                         }
                     </td>
-                    <td width="8%" class="mmac">
+                    <td width="8%" class="mmac" align="left">
                         @{
                             var mmac = nsv - Model.PromotionsDetails[i].Product.pc - Model.PromotionsDetails[i].Product.cc;
                             @Html.DisplayFor(model => mmac, new { htmlAttributes = new { @class = "form-control" } })
@@ -308,7 +341,19 @@
                         @Html.ActionLink("DeleteItem", "DeleteItem", new { id = Model.PromotionsDetails[i].id, promoid = Model.id })
                     </td>
                 </tr>
+
             }
+            <tr align="right">
+                <td width="8%" class="col-md-1"></td>
+                <td width="8%" class="col-md-1"></td>
+                <td width="8%" class="col-md-1"></td>
+                <td width="8%" class="col-md-1"></td>
+                <td width="8%" class="col-md-1" align="left">Total</td>
+                <td width="8%" class="gsvsum col-md-1" align="left"></td>
+                <td width="8%" class="nivsum col-md-1" align="left"></td>
+                <td width="8%" class="nsvsum col-md-1" align="left"></td>
+                <td width="8%" class="mmacsum col-md-1" align="left"></td>
+            </tr>
 
         </table>
 
