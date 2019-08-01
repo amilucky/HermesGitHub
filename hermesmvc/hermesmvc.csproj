@@ -212,6 +212,7 @@
     <Compile Include="Controllers\PromotionsTypesController.cs" />
     <Compile Include="Controllers\SegmentsController.cs" />
     <Compile Include="Controllers\TechnologiesController.cs" />
+    <Compile Include="Controllers\YearsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -658,6 +659,11 @@
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Views\Years\Create.cshtml" />
+    <Content Include="Views\Years\Delete.cshtml" />
+    <Content Include="Views\Years\Details.cshtml" />
+    <Content Include="Views\Years\Edit.cshtml" />
+    <Content Include="Views\Years\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
