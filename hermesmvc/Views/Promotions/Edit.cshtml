@@ -34,9 +34,15 @@
             if (isEmpty(te_off)) te_off = 0;
             if (isEmpty(te_on)) te_on = 0;
 
+            //to double format
             var volume = $(tr).find('.volume').val();
-            var discount_on = $(tr).find('.discount_on').val().replace('%', '').replace(',', '.') / 100;
-            var discount_off = $(tr).find('.discount_off').val().replace('%', '').replace(',', '.') / 100;
+            var discount_on = $(tr).find('.discount_on').val().replace(',', '.');
+            var discount_off = $(tr).find('.discount_off').val().replace(',', '.');
+
+            //to 00,00% format
+            //var volume = $(tr).find('.volume').val();
+            //var discount_on = $(tr).find('.discount_on').val().replace('%', '').replace(',', '.') / 100;
+            //var discount_off = $(tr).find('.discount_off').val().replace('%', '').replace(',', '.') / 100;
 
             gsv = (gsv * volume).toFixed();
             var niv = (gsv * (1 - discount_on) * (1 - te_on)).toFixed();

@@ -23,7 +23,7 @@
         <EntityTypeShape EntityType="HermesDBModel.ProductsPrice" Width="1.5" PointX="10.5" PointY="21.875" IsExpanded="true" />
         <EntityTypeShape EntityType="HermesDBModel.PromoGroup" Width="1.5" PointX="6" PointY="21.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HermesDBModel.Promotion" Width="1.5" PointX="8.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HermesDBModel.PromotionsDetail" Width="1.5" PointX="10.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HermesDBModel.PromotionsDetail" Width="1.5" PointX="10.5" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="HermesDBModel.PromotionsStatus" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HermesDBModel.PromotionsType" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HermesDBModel.Segment" Width="1.5" PointX="3.75" PointY="22.5" IsExpanded="true" />
@@ -89,19 +89,7 @@
         <AssociationConnector Association="HermesDBModel.FK_ProductModelProductDescription_ProductDescription_ProductDescriptionID" />
         <AssociationConnector Association="HermesDBModel.FK_ProductModelProductDescription_ProductModel_ProductModelID" />
         <AssociationConnector Association="HermesDBModel.FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID" />
-        <AssociationConnector Association="HermesDBModel.FK_CustomerAddress_Address_AddressID" />
-        <AssociationConnector Association="HermesDBModel.FK_SalesOrderHeader_Address_BillTo_AddressID" />
-        <AssociationConnector Association="HermesDBModel.FK_SalesOrderHeader_Address_ShipTo_AddressID" />
-        <AssociationConnector Association="HermesDBModel.FK_CustomerAddress_Customer_CustomerID" />
-        <AssociationConnector Association="HermesDBModel.FK_SalesOrderHeader_Customer_CustomerID" />
-        <AssociationConnector Association="HermesDBModel.FK_Product_ProductCategory_ProductCategoryID" />
-        <AssociationConnector Association="HermesDBModel.FK_Product_ProductModel_ProductModelID" />
-        <AssociationConnector Association="HermesDBModel.FK_SalesOrderDetail_Product_ProductID" />
-        <AssociationConnector Association="HermesDBModel.FK_ProductCategory_ProductCategory_ParentProductCategoryID_ProductCategoryID" />
-        <AssociationConnector Association="HermesDBModel.FK_ProductModelProductDescription_ProductDescription_ProductDescriptionID" />
-        <AssociationConnector Association="HermesDBModel.FK_ProductModelProductDescription_ProductModel_ProductModelID" />
-        <AssociationConnector Association="HermesDBModel.FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

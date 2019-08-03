@@ -18,9 +18,9 @@ namespace hermesmvc.Models
         public int product_id { get; set; }
         public int promotion_id { get; set; }
         public int volume { get; set; }
-        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
+        //[System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
         public double discount_on { get; set; }
-        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
+        //[System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
         public double discount_off { get; set; }
         public Nullable<decimal> te_on { get; set; }
         public Nullable<decimal> te_off { get; set; }

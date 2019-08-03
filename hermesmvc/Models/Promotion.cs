@@ -30,13 +30,13 @@ namespace hermesmvc.Models
         public int customer_id { get; set; }
         public System.DateTime edit_date { get; set; }
         public string note { get; set; }
-        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
+        //[System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
         public double week1 { get; set; }
-        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
+        //[System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
         public double week2 { get; set; }
-        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
+        //[System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
         public double week3 { get; set; }
-        [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
+        //[System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0:P2}", ApplyFormatInEditMode = true)]
         public double week4 { get; set; }
         public double leaflet_fee { get; set; }
         public double secondaryplacement_fee { get; set; }

@@ -82,6 +82,7 @@ namespace hermesmvc.Controllers
                 //db.Entry(promotion).State = EntityState.Modified;
                 foreach (var item in promotion.PromotionsDetails)
                 {
+                    item.Product.id = item.product_id;
                     db.Entry(item).State = EntityState.Modified;
                 }
                 db.SaveChanges();
