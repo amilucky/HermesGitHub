@@ -1,0 +1,118 @@
+﻿@model hermesmvc.Models.Promotion
+
+<div class="form-horizontal">
+
+
+    <hr />
+    <h3>Products</h3>
+    @Html.ActionLink("AddItem", "AddProducts", "Promotions", new { id = this.Model.id}, new { @class = "control-label popup col-md-1" })
+    
+    <table class="form-group products-table">
+
+        <tr align="right">
+            <th align="left">
+                @Html.Label("Product_name", htmlAttributes: new { @class = "control-label col-md-1" })
+            </th>
+            <th>
+                @Html.Label("Volume", htmlAttributes: new { @class = "control-label col-md-1" })
+            </th>
+            <th>
+                @Html.Label("Discount_On", htmlAttributes: new { @class = "control-label col-md-1" })
+            </th>
+            <th>
+                @Html.Label("Discount_Off", htmlAttributes: new { @class = "control-label col-md-1" })
+            </th>
+            <th>
+                @Html.Label("Casecount", htmlAttributes: new { @class = "control-label col-md-1" })
+            </th>
+            <th>
+                @Html.Label("GSV", htmlAttributes: new { @class = "control-label col-md-1" })
+            </th>
+            <th>
+                @Html.Label("NIV", htmlAttributes: new { @class = "control-label col-md-1" })
+            </th>
+            <th>
+                @Html.Label("NSV", htmlAttributes: new { @class = "control-label col-md-1" })
+            </th>
+            <th>
+                @Html.Label("MMAC", htmlAttributes: new { @class = "control-label col-md-1" })
+            </th>
+        </tr>
+
+
+
+
+        @for (int i = 0; i < Model.PromotionsDetails.Count(); i++)
+        {
+            @Html.HiddenFor(model => model.PromotionsDetails[i].id)
+            @Html.HiddenFor(model => model.PromotionsDetails[i].promotion_id)
+            @Html.HiddenFor(model => model.PromotionsDetails[i].product_id)
+            <tr align="right">
+                @Html.HiddenFor(model => model.PromotionsDetails[i].Product.gsv)
+                @Html.HiddenFor(model => model.PromotionsDetails[i].te_on)
+                @Html.HiddenFor(model => model.PromotionsDetails[i].te_off)
+                @Html.HiddenFor(model => model.PromotionsDetails[i].Product.cc)
+                @Html.HiddenFor(model => model.PromotionsDetails[i].Product.pc)
+                <td width="20%" align="left">
+                    @Html.DisplayFor(model => model.PromotionsDetails[i].Product.name, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td width="10%">
+                    @Html.EditorFor(model => model.PromotionsDetails[i].volume, new { htmlAttributes = new { @class = "form-control volume" } })
+                </td>
+                <td width="10%">
+                    @Html.EditorFor(model => model.PromotionsDetails[i].discount_on, new { htmlAttributes = new { @class = "form-control discount_on" } })
+                </td>
+                <td width="10%">
+                    @Html.EditorFor(model => model.PromotionsDetails[i].discount_off, new { htmlAttributes = new { @class = "form-control discount_off" } })
+                </td>
+                <td width="10%">
+                    @Html.DisplayFor(model => model.PromotionsDetails[i].Product.casecount, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td width="8%" class="gsv" align="left">
+
+                    @{
+                        var gsv = Model.PromotionsDetails[i].volume * Model.PromotionsDetails[i].Product.gsv;
+                        @Html.DisplayFor(model => gsv, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                </td>
+                <td width="8%" class="niv" align="left">
+                    @{
+                        var niv = gsv * (1 - Model.PromotionsDetails[i].discount_on) * (1 - Convert.ToDouble(Model.PromotionsDetails[i].te_on));
+                        //niv = @Math.Round(Convert.ToDouble(niv));
+                        @Html.DisplayFor(model => niv, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                </td>
+                <td width="8%" class="nsv" align="left">
+                    @{
+                        var nsv = Convert.ToDouble(niv) * (1 - Model.PromotionsDetails[i].discount_off) * (1 - Convert.ToDouble(Model.PromotionsDetails[i].te_off));
+                        @Html.DisplayFor(model => nsv, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                </td>
+                <td width="8%" class="mmac" align="left">
+                    @{
+                        var mmac = nsv - Model.PromotionsDetails[i].Product.pc - Model.PromotionsDetails[i].Product.cc;
+                        @Html.DisplayFor(model => mmac, new { htmlAttributes = new { @class = "form-control" } })
+                    }
+                </td>
+                <td width="8%">
+                    @Html.ActionLink("DeleteItem", "DeleteItem", new { id = Model.PromotionsDetails[i].id, promoid = Model.id })
+                </td>
+            </tr>
+
+        }
+        <tr align="right">
+            <td width="8%" class="col-md-1"></td>
+            <td width="8%" class="col-md-1"></td>
+            <td width="8%" class="col-md-1"></td>
+            <td width="8%" class="col-md-1"></td>
+            <td width="8%" class="col-md-1" align="left">Total</td>
+            <td width="8%" class="gsvsum col-md-1" align="left"></td>
+            <td width="8%" class="nivsum col-md-1" align="left"></td>
+            <td width="8%" class="nsvsum col-md-1" align="left"></td>
+            <td width="8%" class="mmacsum col-md-1" align="left"></td>
+        </tr>
+
+    </table>
+
+
+</div>

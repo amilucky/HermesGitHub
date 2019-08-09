@@ -30,7 +30,8 @@ namespace hermesmvc
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            
+            //bundles.Add(new ScriptBundle("~/scripts/ajax").Include(
+            //    "~/Scripts/jquery.unobtrusive-ajax.min.js"));
         }
     }
 }

@@ -1,0 +1,102 @@
+﻿@model IEnumerable<hermesmvc.Models.PromotionsDetail>
+
+@{
+    
+
+}
+
+<script>
+    $(function() {
+        $("#testlink").click(function () {
+            getCheckedCheckBoxes();
+            @*var parameters = getCheckedCheckBoxes();
+            var someobject = { Params: parameters, Id: @id  }
+
+            $.ajax({
+                url: "/Promotion/AddProducts",
+                type: "POST",
+                data: { obj: someobject},
+                success: function(data) {
+                    alert(data.result);
+                },
+                error: function(data) {
+                    alert(data.responseText);
+                }
+            });*@
+        });
+    })
+
+    function getCheckedCheckBoxes() {
+        var checkboxes = $(document).find('.checkbox');
+        var checkboxesChecked = []; // можно в массиве их хранить, если нужно использовать
+        for (var index = 0; index < checkboxes.length; index++) {
+            if (checkboxes[index].checked) {
+                checkboxesChecked.push($(checkboxes[index]).attr('id')); // положим в массив выбранный
+                console.log($(checkboxes[index]).attr('id')); // делайте что нужно - это для наглядности
+            }
+        }
+        return checkboxesChecked; // для использования в нужном месте
+    }
+
+</script>
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4>Add Product to Promo</h4>
+    </div>
+    <div class="modal-body">
+
+        @using (Html.BeginForm("AddProducts", "Promotions", FormMethod.Get))
+        {            
+            @Html.DropDownList("SegmentList", ViewBag.SegmentListName as SelectList)            
+
+            <input id="Submit1" type="submit" value="search" />
+
+        }
+        <table class="form-group">
+
+            <tr>
+                <th>
+                    @Html.Label("Add", htmlAttributes: new { @class = "control-label col-md-1" })
+                </th>
+                <th>
+                    @Html.Label("Product", htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    @Html.Label("Brand", htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    @Html.Label("Tehnology", htmlAttributes: new { @class = "control-label col-md-1" })
+                </th>
+                <th>
+                    @Html.Label("Segment", htmlAttributes: new { @class = "control-label col-md-1" })
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @Html.HiddenFor(model => item.id)
+                    @Html.HiddenFor(model => item.product_id)
+                    @Html.HiddenFor(model => item.promotion_id)
+                    <td class="col-md-1">
+                        @Html.ActionLink("Add", "AddProduct", "Promotions", new { pid = item.product_id, id = ViewBag.Id }, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td class="col-md-2">
+                        @Html.DisplayFor(model => item.Product.name, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td class="col-md-2">
+                        @Html.DisplayFor(model => item.Product.PromoGroup.Brand.name, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(model => item.Product.PromoGroup.Technology.name, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(model => item.Product.PromoGroup.Segment.name, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>    
+</div>

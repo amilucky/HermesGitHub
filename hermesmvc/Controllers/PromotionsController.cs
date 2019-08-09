@@ -99,7 +99,98 @@ namespace hermesmvc.Controllers
             return View(promotion);
         }
         //------
+        [HttpGet]
+        public ActionResult AddProducts(int? id, FormCollection form)
+        {
+            var getsegmentlist = db.Segments.ToList();
+            getsegmentlist.Insert(0, new Segment { name = "All", id = 0 });
+            SelectList list_segment = new SelectList(getsegmentlist, "id", "name");
+            ViewBag.SegmentListName = list_segment;
 
+
+            int intDDL_Segment = 0;
+            if (form["SegmentList"] != null)
+            {
+                intDDL_Segment = Convert.ToInt32(form["SegmentList"].ToString());
+            }
+            
+
+            ViewBag.Id = id;
+            var promotion = db.Promotions.Find(id);
+            var pds = new List<PromotionsDetail>();
+
+            if (intDDL_Segment == 0)
+            {
+                foreach (var item in db.Products)
+                {
+                    PromotionsDetail pd = new PromotionsDetail();
+                    pd.product_id = item.id;
+                    pd.Product = item;
+                    pd.Promotion = promotion;
+                    pd.promotion_id = promotion.id;
+                    pds.Add(pd);
+                }
+            }
+            else
+            {
+                foreach (var item in db.Products)
+                {
+                    if (item.PromoGroup.segment_id == intDDL_Segment)
+                    {
+                        PromotionsDetail pd = new PromotionsDetail();
+                        pd.product_id = item.id;
+                        pd.Product = item;
+                        pd.Promotion = promotion;
+                        pd.promotion_id = promotion.id;
+                        pds.Add(pd);
+                    }                    
+                }
+            }
+            
+
+            return PartialView(pds.ToList());
+        }
+
+        //public class ProductRequest
+        //{
+        //    public string[] Params { get; set; }
+        //    public int Id { get; set; }
+        //}
+
+        
+        public ActionResult AddProduct(int? id, int pid)
+        {
+            
+            //foreach (var item in checkbox)
+            //{
+            //    products.Add(db.Products.Find(item));
+            //}
+            var promotion = db.Promotions.Find(id);
+            PromotionsDetail detail = new PromotionsDetail();
+            Product product = db.Products.Find(pid);
+
+            detail.Product = product;
+            detail.product_id = product.id;
+            detail.promotion_id = promotion.id;
+            db.PromotionsDetails.Add(detail);
+            promotion.PromotionsDetails.Add(detail);
+
+            db.SaveChanges();
+            return RedirectToAction("Edit", "Promotions", promotion.id);
+            
+            
+        }
+
+
+        public ActionResult ProductsPartial(Promotion promotion)
+        {
+            //var products = new List<Product>();
+            //foreach (var item in promotion.PromotionsDetails)
+            //{
+            //    products.Add(item.Product);
+            //}
+            return PartialView(promotion);
+        }
 
         // GET: Promotions
         public ActionResult Index()

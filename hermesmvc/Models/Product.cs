@@ -34,7 +34,9 @@ namespace hermesmvc.Models
         public Nullable<double> gsv { get; set; }
         public Nullable<double> pc { get; set; }
         public Nullable<double> cc { get; set; }
-    
+
+        public bool isChecked { get; set; } = false;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Actual> Actuals { get; set; }
         public virtual PromoGroup PromoGroup { get; set; }
