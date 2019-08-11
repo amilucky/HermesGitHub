@@ -42,6 +42,7 @@ namespace hermesmvc.Controllers
         }
 
         // GET: Promotions/Edit/5
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -174,9 +175,9 @@ namespace hermesmvc.Controllers
             detail.promotion_id = promotion.id;
             db.PromotionsDetails.Add(detail);
             promotion.PromotionsDetails.Add(detail);
-
+            id = promotion.id;
             db.SaveChanges();
-            return RedirectToAction("Edit", "Promotions", promotion.id);
+            return RedirectToAction("Edit", "Promotions", new { id });
             
             
         }
