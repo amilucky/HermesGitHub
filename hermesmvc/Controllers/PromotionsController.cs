@@ -101,13 +101,13 @@ namespace hermesmvc.Controllers
         }
         //------
         [HttpGet]
-        public ActionResult AddProducts(int? id, FormCollection form)
-        {
+        public PartialViewResult AddProducts(int? id, FormCollection form)
+        {            
             var getsegmentlist = db.Segments.ToList();
             getsegmentlist.Insert(0, new Segment { name = "All", id = 0 });
             SelectList list_segment = new SelectList(getsegmentlist, "id", "name");
             ViewBag.SegmentListName = list_segment;
-
+            ViewBag.Id = id;
 
             int intDDL_Segment = 0;
             if (form["SegmentList"] != null)
@@ -116,7 +116,7 @@ namespace hermesmvc.Controllers
             }
             
 
-            ViewBag.Id = id;
+            
             var promotion = db.Promotions.Find(id);
             var pds = new List<PromotionsDetail>();
 
@@ -150,6 +150,59 @@ namespace hermesmvc.Controllers
             
 
             return PartialView(pds.ToList());
+        }
+
+        
+        public PartialViewResult SearchProducts(int promotion_id, FormCollection form)
+        {
+            
+            var getsegmentlist = db.Segments.ToList();
+            getsegmentlist.Insert(0, new Segment { name = "All", id = 0 });
+            SelectList list_segment = new SelectList(getsegmentlist, "id", "name");
+            ViewBag.SegmentListName = list_segment;
+            ViewBag.Id = promotion_id;
+
+            //int intDDL_Segment = segmentId;
+            int intDDL_Segment = 0;
+            if (form["SegmentList"] != null)
+            {
+                intDDL_Segment = Convert.ToInt32(form["SegmentList"].ToString());
+            }
+
+
+            //int intDDL_Segment = segmentId;
+
+            var promotion = db.Promotions.Find(promotion_id);
+            var pds = new List<PromotionsDetail>();
+
+            if (intDDL_Segment == 0)
+            {
+                foreach (var item in db.Products)
+                {
+                    PromotionsDetail pd = new PromotionsDetail();
+                    pd.product_id = item.id;
+                    pd.Product = item;
+                    pd.Promotion = promotion;
+                    pd.promotion_id = promotion.id;
+                    pds.Add(pd);
+                }
+            }
+            else
+            {
+                foreach (var item in db.Products.Where(p => p.PromoGroup.segment_id == intDDL_Segment))
+                {
+                    
+                        PromotionsDetail pd = new PromotionsDetail();
+                        pd.product_id = item.id;
+                        pd.Product = item;
+                        pd.Promotion = promotion;
+                        pd.promotion_id = promotion.id;
+                        pds.Add(pd);
+                    
+                }
+            }            
+
+            return PartialView("AddProducts", pds.ToList());
         }
 
         //public class ProductRequest

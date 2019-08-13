@@ -1,44 +1,28 @@
 ﻿@model IEnumerable<hermesmvc.Models.PromotionsDetail>
 
 @{
-    
+
 
 }
+@*@section scripts
+    {
+    <script type="text/javascript">
 
-<script>
-    $(function() {
-        $("#testlink").click(function () {
-            getCheckedCheckBoxes();
-            @*var parameters = getCheckedCheckBoxes();
-            var someobject = { Params: parameters, Id: @id  }
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $("#search").click(function (e) {
+                $('#modDialog').modal('hide')
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}*@
 
-            $.ajax({
-                url: "/Promotion/AddProducts",
-                type: "POST",
-                data: { obj: someobject},
-                success: function(data) {
-                    alert(data.result);
-                },
-                error: function(data) {
-                    alert(data.responseText);
-                }
-            });*@
-        });
-    })
 
-    function getCheckedCheckBoxes() {
-        var checkboxes = $(document).find('.checkbox');
-        var checkboxesChecked = []; // можно в массиве их хранить, если нужно использовать
-        for (var index = 0; index < checkboxes.length; index++) {
-            if (checkboxes[index].checked) {
-                checkboxesChecked.push($(checkboxes[index]).attr('id')); // положим в массив выбранный
-                console.log($(checkboxes[index]).attr('id')); // делайте что нужно - это для наглядности
-            }
-        }
-        return checkboxesChecked; // для использования в нужном месте
-    }
-
-</script>
 
 <div class="modal-content">
     <div class="modal-header">
@@ -47,13 +31,25 @@
     </div>
     <div class="modal-body">
 
-        @using (Html.BeginForm("AddProducts", "Promotions", FormMethod.Get))
-        {            
-            @Html.DropDownList("SegmentList", ViewBag.SegmentListName as SelectList)            
 
-            <input id="Submit1" type="submit" value="search" />
 
+        @*@using (Html.BeginForm("SearchProducts", "Promotions", new { id = Model.First().promotion_id }))
+        {
+            @Html.HiddenFor(model => Model.First().promotion_id)
+            @Html.DropDownList("SegmentList", ViewBag.SegmentListName as SelectList)
+
+            <input type="submit" value="search" id="search" />
+
+        }*@
+
+        @using (Ajax.BeginForm("SearchProducts", new AjaxOptions { UpdateTargetId = "modDialog" }))
+        {
+            @Html.HiddenFor(model => Model.First().promotion_id)
+            @Html.DropDownList("SegmentList", ViewBag.SegmentListName as SelectList)
+
+            <input type="submit" value="search" id="search" />
         }
+
         <table class="form-group">
 
             <tr>
@@ -98,5 +94,5 @@
             }
         </table>
 
-    </div>    
+    </div>
 </div>
