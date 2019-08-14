@@ -42,7 +42,7 @@
 
         }*@
 
-        @using (Ajax.BeginForm("SearchProducts", new AjaxOptions { UpdateTargetId = "modDialog" }))
+        @using (Ajax.BeginForm("SearchProducts", new AjaxOptions { UpdateTargetId = "dialogContent" }))
         {
             @Html.HiddenFor(model => Model.First().promotion_id)
             @Html.DropDownList("SegmentList", ViewBag.SegmentListName as SelectList)
